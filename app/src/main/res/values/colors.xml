@@ -17,5 +17,5 @@
     <color name="progressCircularBarColor">#facfc2</color>
     <color name="taskBackgroundColor">#eef2fb</color>
     <color name="taskScreenBackgroundColor">#33354e</color>
-    <color name="profileScreenBackgroundTransparent">#33354e</color>
+    <color name="profileScreenBackgroundTransparent">#33feffff</color>
 </resources>

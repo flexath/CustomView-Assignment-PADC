@@ -2,17 +2,15 @@ package com.flexath.msixteenassignment.activities
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flexath.msixteenassignment.R
 import com.flexath.msixteenassignment.adapters.ProfileImageAdapter
 import com.flexath.msixteenassignment.adapters.ProfileImageItemDecoration
 import com.flexath.msixteenassignment.delegates.MainItemDelegate
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_task_screen.*
 
 class TaskScreenActivity : AppCompatActivity(),MainItemDelegate {
@@ -35,6 +33,11 @@ class TaskScreenActivity : AppCompatActivity(),MainItemDelegate {
     }
 
     private fun setUpListeners() {
+
+        btnBackMainTask.setOnClickListener {
+            finish()
+        }
+
         chipDesign.setOnClickListener {
             if(chipDesign.isChecked) {
                 chipDesign.setChipBackgroundColorResource(R.color.colorAccent)

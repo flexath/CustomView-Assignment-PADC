@@ -1,12 +1,9 @@
 package com.flexath.msixteenassignment.activities
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -16,6 +13,7 @@ import com.flexath.msixteenassignment.adapters.TaskAdapter
 import com.flexath.msixteenassignment.delegates.MainItemDelegate
 import kotlinx.android.synthetic.main.activity_profile_screen.*
 
+@Suppress("DEPRECATION")
 class ProfileScreenActivity : AppCompatActivity(),MainItemDelegate {
 
     private val titleList = listOf("Project Tasks","Contacts","About You","Jobs")
@@ -31,12 +29,11 @@ class ProfileScreenActivity : AppCompatActivity(),MainItemDelegate {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_screen)
 
-        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setBackgroundDrawable(ColorDrawable(R.layout.activity_main))
         window.setDimAmount(0f)
 
         changeStatusBar()
 
-        ivProfile.bringToFront()
         setUpTitleTabLayout()
         setUpTaskProfileRecyclerView()
         setUpListeners()

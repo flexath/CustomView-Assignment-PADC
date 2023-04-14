@@ -9,6 +9,7 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.flexath.msixteenassignment.R
 
@@ -16,8 +17,20 @@ class RoundedProfileImage @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : AppCompatImageView(context, attrs, defStyleAttr) {
 
+    private var contextCircular = context
+
     private var cornerRadius = 0f
+    private var isActive = false
     private val path = Path()
+
+    private val DEFAULT_ACTIVE_CIRCLE_COLOR =
+        ContextCompat.getColor(contextCircular, R.color.colorAccent)
+
+    private val paintForBorder = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = DEFAULT_BORDER_COLOR
+        style = Paint.Style.STROKE
+        strokeWidth = DEFAULT_BORDER_WIDTH
+    }
 
     companion object {
         private const val DEFAULT_BORDER_WIDTH = 8.0f
@@ -26,27 +39,58 @@ class RoundedProfileImage @JvmOverloads constructor(
 
     init {
         context.withStyledAttributes(attrs, R.styleable.RoundedProfileImage) {
-            cornerRadius = getDimension(R.styleable.RoundedProfileImage_cornerRadius,0f)
+            cornerRadius = getDimension(R.styleable.RoundedProfileImage_cornerRadius, 0f)
+            isActive = getBoolean(R.styleable.RoundedProfileImage_isActive, false)
         }
+
+        translationZ = 8f
     }
 
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas?) {
         val rectangle = RectF(0f, 0f, width.toFloat(), height.toFloat())
-        path.addRoundRect(rectangle,cornerRadius,cornerRadius,Path.Direction.CCW)
+        path.addRoundRect(rectangle, cornerRadius, cornerRadius, Path.Direction.CCW)
         canvas?.clipPath(path)
         super.onDraw(canvas)
 
         onDrawBorderCircle(canvas)
+
+        if (isActive) {
+            onDrawActiveCircle(canvas)
+        }
     }
 
     private fun onDrawBorderCircle(canvas: Canvas?) {
-        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        canvas?.drawCircle(
+            width / 2f,
+            height / 2f,
+            cornerRadius - DEFAULT_BORDER_WIDTH / 2f,
+            paintForBorder
+        )
+    }
 
-        paint.color = DEFAULT_BORDER_COLOR
-        paint.style = Paint.Style.STROKE
-        paint.strokeWidth = DEFAULT_BORDER_WIDTH
-        paint.strokeCap = Paint.Cap.BUTT
-        canvas?.drawCircle(width/2f,height/2f,cornerRadius - DEFAULT_BORDER_WIDTH/2f,paint)
+    private fun onDrawActiveCircle(canvas: Canvas?) {
+
+        // For Active Circle
+        val paintForActiveCircle = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            style = Paint.Style.FILL
+            color = DEFAULT_ACTIVE_CIRCLE_COLOR
+            translationZ = 8f
+            bringToFront()
+        }
+        canvas?.drawCircle(
+            width.toFloat() * 0.73f,
+            height.toFloat() * 0.9f,
+            cornerRadius / 8,
+            paintForActiveCircle
+        )
+
+        // For Active Circle Border
+        canvas?.drawCircle(
+            width.toFloat() * 0.73f,
+            height.toFloat() * 0.9f,
+            (cornerRadius / 8) + DEFAULT_BORDER_WIDTH / 2f,
+            paintForBorder
+        )
     }
 }

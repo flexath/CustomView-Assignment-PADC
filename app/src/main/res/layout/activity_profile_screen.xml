@@ -2,9 +2,9 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profileScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/profileScreen"
     android:background="@android:color/transparent"
     tools:context=".activities.ProfileScreenActivity">
 
@@ -39,6 +39,7 @@
             android:elevation="@dimen/margin_medium"
             android:scaleType="centerCrop"
             app:cornerRadius="60dp"
+            app:isActive="true"
             app:srcCompat="@drawable/aungthiha" />
 
         <RelativeLayout
@@ -89,7 +90,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/margin_xlarge"
                 android:layout_marginEnd="@dimen/margin_large"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="RelativeOverlap">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -150,7 +152,7 @@
                 android:paddingTop="@dimen/margin_medium_2"
                 android:paddingEnd="@dimen/margin_xxlarge"
                 android:paddingBottom="@dimen/margin_medium_2"
-                android:text="MESSAGE"
+                android:text="@string/message_lbl"
                 android:textColor="@color/white"
                 app:backgroundTint="@color/colorAccent"
                 app:cornerRadius="@dimen/margin_large"
@@ -219,8 +221,8 @@
             android:id="@+id/rvTaskProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorTransparent"
             android:layout_below="@+id/rlUserDataProfile"
+            android:background="@color/colorTransparent"
             android:padding="@dimen/margin_large"
             tools:listitem="@layout/viewpod_task_item" />
 
